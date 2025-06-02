@@ -2,7 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+/backend/riseupenv/
+/backend/.env
 # C extensions
 *.so
 
