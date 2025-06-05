@@ -1,7 +1,8 @@
 fastapi
 uvicorn
-openai
+openai==0.28
 twilio
 python-multipart
 apscheduler
 requests
+boto3
