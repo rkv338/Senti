@@ -1,19 +1,49 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from ai import generate_message
-from tts import synthesize_voice
-from call import make_call
 import logging
 import boto3
 import os
 import uuid
 logger = logging.getLogger(__name__)
 scheduler = BackgroundScheduler()
+import redis
+import json
+import datetime
+import ssl
+import time
+
+def test_valkey_connection():
+    r = redis.Redis(host='localhost', port=6379, ssl=True, ssl_cert_reqs=None, decode_responses=True)
+    return r if r.ping() else None
 
 def schedule_call(name, phone, hour, minute, tone, audio_url_func):
-    # text = generate_message(name, tone)
-    text = generate_message(name, tone)
-    call_with_script(text, phone, )
-    logger.info(f"In Scheduler:Text generated")
+    # connect_to_valkey()
+    connection = test_valkey_connection()
+    if connection:
+
+        # text = generate_message(name, tone)
+        scheduled_time = datetime.datetime.now()
+        # create a json with the necessary info to make a outbound call
+        call_job = {
+            'user_name': name,
+            'phone_number': phone,
+            'tone_of_call': tone
+            # 'script': text
+        }
+        connection.zadd("scheduled_calls", {json.dumps(call_job): int(scheduled_time.strftime('%Y%m%d'))})
+        logger.info("scheduled call in valkey instance")
+        logger.info(connection.zrange('scheduled_calls', 0, -1))
+    else:
+        logger.error("connection to valkey instance failed")  
+    # job_json = json.dumps(call_job, default=str)
+    # score = int(scheduled_time.timestamp())
+    # logger.info('figured out the score')
+    # redis_client.zadd('scheduled_calls', {job_json: score})
+    # logger.info('sent it off to redis')
+    # print('Scheduled call')
+    # # call_with_script(text, phone)
+    # logger.info(scheduled_time)
+    # logger.info(f"In Scheduler:Text generated and job scheduled")
     # audio_file = synthesize_voice(text, filename=f"{name}.mp3")
     # logger.info(f"In Scheduler:Audio file generated")
     # url = audio_url_func(audio_file)
