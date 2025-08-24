@@ -58,10 +58,16 @@ const ScheduleForm = () => {
         ...form,
       };
       
+      console.log('Sending payload:', payload);
+      console.log('Making request to: http://localhost:8000/schedule');
+      
       const response = await axios.post('http://localhost:8000/schedule', payload);
+      console.log('Response received:', response);
       setStatus(response.data.status);
     } catch (err) {
-      setStatus('Failed to schedule. Please try again.');
+      console.error('Request failed:', err);
+      console.error('Error details:', err.response?.data || err.message);
+      setStatus(`Failed to schedule: ${err.response?.data?.message || err.message || 'Please try again.'}`);
     } finally {
       setIsLoading(false);
     }

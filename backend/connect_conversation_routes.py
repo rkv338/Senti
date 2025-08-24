@@ -7,7 +7,6 @@ from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import JSONResponse
 import logging
 import json
-from conversation_handler import conversation_handler
 from typing import Dict, Any
 from ai import generate_message_for_conversation
 
