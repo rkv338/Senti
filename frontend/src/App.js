@@ -1,43 +1,33 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import ScheduleForm from './components/ScheduleForm';
+import './App.css';
 
 function App() {
-  const [form, setForm] = useState({
-    name: '',
-    phone: '',
-    hour: '',
-    minute: '',
-    tone: 'gentle',
-  });
-  const [status, setStatus] = useState('');
-
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const submitForm = async () => {
-    try {
-      const response = await axios.post('http://localhost:8000/schedule', form);
-      setStatus(response.data.status);
-    } catch (err) {
-      setStatus('Failed to schedule.');
-    }
-  };
-
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Wake-Up Call Assistant</h2>
-      <input name="name" placeholder="Your name" onChange={handleChange} /><br />
-      <input name="phone" placeholder="+15551234567" onChange={handleChange} /><br />
-      <input name="hour" type="number" placeholder="Hour (0-23)" onChange={handleChange} /><br />
-      <input name="minute" type="number" placeholder="Minute (0-59)" onChange={handleChange} /><br />
-      <select name="tone" onChange={handleChange}>
-        <option value="gentle">Gentle</option>
-        <option value="tough love">Tough Love</option>
-        <option value="spiritual">Spiritual</option>
-      </select><br /><br />
-      <button onClick={submitForm}>Schedule Call</button>
-      <p>{status}</p>
+    <div className="App">
+      <div className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-title">Senti</h1>
+          <p className="hero-subtitle">Your personal mental health companion</p>
+          <p className="hero-description">
+            Start each day with intention. Schedule a gentle wake-up call that supports your mental wellness journey.
+          </p>
+        </div>
+      </div>
+      
+      <div className="main-content">
+        <div className="form-container">
+          <h2 className="form-title">Schedule Your Wellness Call</h2>
+          <p className="form-description">
+            Choose your preferred tone and time for a personalized wake-up experience designed to promote positive mental health.
+          </p>
+          <ScheduleForm />
+        </div>
+      </div>
+      
+      <footer className="footer">
+        <p>Taking care of your mental health, one day at a time.</p>
+      </footer>
     </div>
   );
 }

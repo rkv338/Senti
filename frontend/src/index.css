@@ -1,13 +1,68 @@
-body {
+:root {
+  /* Mental Health Color Palette */
+  --primary-color: #6B7FDD; /* Calming periwinkle blue */
+  --secondary-color: #97B3D9; /* Soft sky blue */
+  --accent-color: #B8D4C6; /* Gentle sage green */
+  --warm-accent: #F2D7C7; /* Soft peach */
+  --text-primary: #2C3E50; /* Dark blue-gray */
+  --text-secondary: #5A6C7D; /* Medium blue-gray */
+  --text-light: #8B9DC3; /* Light blue-gray */
+  --background-primary: #FDFEFE; /* Pure white with hint of blue */
+  --background-secondary: #F8FAFD; /* Very light blue-white */
+  --background-card: #FFFFFF; /* Pure white */
+  --border-color: #E3EBEF; /* Very light blue-gray */
+  --shadow-light: rgba(107, 127, 221, 0.08);
+  --shadow-medium: rgba(107, 127, 221, 0.15);
+  --success-color: #84C88A; /* Gentle green */
+  --error-color: #E899A1; /* Soft coral */
+}
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.7;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Accessibility improvements */
+*:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+*, *::before, *::after {
+  transition: all 0.3s ease;
 }
