@@ -17,7 +17,7 @@ function App() {
       
       <div className="main-content">
         <div className="form-container">
-          <h2 className="form-title">Schedule Your Wellness Call</h2>
+          <h2 className="form-title">Schedule Your Wellness Wake-Up Call</h2>
           <p className="form-description">
             Choose your preferred tone and time for a personalized wake-up experience designed to promote positive mental health.
           </p>

@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
-from scheduler import schedule_call, start_call_monitor, stop_call_monitor
+from scheduler import schedule_call, start_call_monitor, stop_call_monitor, call_now
 import logging
 import boto3
 import os
@@ -47,3 +47,18 @@ def schedule(form: dict):
     
     schedule_call(form["name"], form["phone"], form["tone"], timestamp)
     return {"status": "scheduled"}
+
+@app.post("/call-now")
+def call_now_endpoint(form: dict):
+    logger.info(f"Received form data: {form}")
+    
+    # Validate required fields
+    if not form.get("name") or not form.get("phone"):
+        return {"status": "error", "message": "Name and phone number are required"}
+    
+    # Use default tone if not provided
+    tone = form.get("tone", "gentle")
+    
+    from scheduler import call_now
+    call_now(form["name"], form["phone"], tone)
+    return {"status": "called"}

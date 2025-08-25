@@ -151,6 +151,66 @@
   line-height: 1.5;
 }
 
+/* Button Group */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Call Now Button */
+.call-now-button {
+  width: 100%;
+  padding: 1.25rem 2rem;
+  background: linear-gradient(135deg, #dc267f 0%, #e879f9 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(220, 38, 127, 0.3);
+}
+
+.call-now-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(220, 38, 127, 0.4);
+}
+
+.call-now-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.call-now-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.call-now-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.call-now-button:hover::before {
+  left: 100%;
+}
+
 /* Submit Button */
 .submit-button {
   width: 100%;
@@ -163,7 +223,6 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 1rem;
   position: relative;
   overflow: hidden;
   font-family: inherit;
@@ -269,7 +328,8 @@
     padding: 1rem;
   }
   
-  .submit-button {
+  .submit-button,
+  .call-now-button {
     padding: 1rem 1.5rem;
     font-size: 1rem;
   }
@@ -285,7 +345,8 @@
   outline-offset: 2px;
 }
 
-.submit-button:focus {
+.submit-button:focus,
+.call-now-button:focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
@@ -307,6 +368,7 @@
   .form-input,
   .tone-option,
   .submit-button,
+  .call-now-button,
   .status-message {
     transition: none;
   }
@@ -315,7 +377,8 @@
     animation: none;
   }
   
-  .submit-button::before {
+  .submit-button::before,
+  .call-now-button::before {
     display: none;
   }
 }

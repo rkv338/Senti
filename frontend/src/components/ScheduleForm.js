@@ -14,6 +14,7 @@ const ScheduleForm = () => {
   const [userTimeZone, setUserTimeZone] = useState('');
   const [cstDateTime, setCstDateTime] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [actionType, setActionType] = useState(''); // 'schedule' or 'call-now'
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -52,6 +53,7 @@ const ScheduleForm = () => {
     }
 
     setIsLoading(true);
+    setActionType('schedule');
     try {
       // Create payload with CST timestamp
       const payload = {
@@ -63,13 +65,45 @@ const ScheduleForm = () => {
       
       const response = await axios.post('http://localhost:8000/schedule', payload);
       console.log('Response received:', response);
-      setStatus(response.data.status);
+      setStatus('Your call has been scheduled successfully!');
     } catch (err) {
       console.error('Request failed:', err);
       console.error('Error details:', err.response?.data || err.message);
       setStatus(`Failed to schedule: ${err.response?.data?.message || err.message || 'Please try again.'}`);
     } finally {
       setIsLoading(false);
+      setActionType('');
+    }
+  };
+
+  const callNow = async () => {
+    if (!form.name || !form.phone) {
+      setStatus('Please fill in your name and phone number for immediate call.');
+      return;
+    }
+
+    setIsLoading(true);
+    setActionType('call-now');
+    try {
+      const payload = {
+        name: form.name,
+        phone: form.phone,
+        tone: form.tone
+      };
+      
+      console.log('Sending call now payload:', payload);
+      console.log('Making request to: http://localhost:8000/call-now');
+      
+      const response = await axios.post('http://localhost:8000/call-now', payload);
+      console.log('Response received:', response);
+      setStatus('Your call has been initiated! You should receive a call shortly.');
+    } catch (err) {
+      console.error('Request failed:', err);
+      console.error('Error details:', err.response?.data || err.message);
+      setStatus(`Failed to initiate call: ${err.response?.data?.message || err.message || 'Please try again.'}`);
+    } finally {
+      setIsLoading(false);
+      setActionType('');
     }
   };
   
@@ -169,20 +203,39 @@ const ScheduleForm = () => {
         </div>
       </div>
       
-      <button 
-        onClick={submitForm}
-        disabled={isLoading}
-        className={`submit-button ${isLoading ? 'loading' : ''}`}
-      >
-        {isLoading ? (
-          <>
-            <span className="loading-spinner"></span>
-            Scheduling...
-          </>
-        ) : (
-          'Schedule My Wellness Call'
-        )}
-      </button>
+      <div className="button-group">
+        <button 
+          onClick={callNow}
+          disabled={isLoading}
+          className={`call-now-button ${isLoading && actionType === 'call-now' ? 'loading' : ''}`}
+        >
+          {isLoading && actionType === 'call-now' ? (
+            <>
+              <span className="loading-spinner"></span>
+              Connecting...
+            </>
+          ) : (
+            <>
+              📞 Call Now
+            </>
+          )}
+        </button>
+        
+        <button 
+          onClick={submitForm}
+          disabled={isLoading}
+          className={`submit-button ${isLoading && actionType === 'schedule' ? 'loading' : ''}`}
+        >
+          {isLoading && actionType === 'schedule' ? (
+            <>
+              <span className="loading-spinner"></span>
+              Scheduling...
+            </>
+          ) : (
+            'Schedule My Wellness Wake-Up Call'
+          )}
+        </button>
+      </div>
       
       {status && (
         <div className={`status-message ${status.includes('Failed') || status.includes('Please fill') ? 'error' : 'success'}`}>

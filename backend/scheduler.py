@@ -58,6 +58,7 @@ def fire_calls(redis_client):
             redis_client.zrem("scheduled_calls", job_json)
         except Exception as e:
             logger.error(f"Error executing call: {e}")
+            redis_client.zrem("scheduled_calls", job_json)
 
 def start_call_monitor():
     """Start the background scheduler to monitor Redis for scheduled calls"""
@@ -70,7 +71,7 @@ def start_call_monitor():
     scheduler.add_job(
         func=lambda: fire_calls(redis_client),
         trigger="interval",
-        seconds=60,
+        seconds=30,
         id='call_monitor',
         replace_existing=True
     )
@@ -118,30 +119,12 @@ def schedule_call(name, phone, tone, timestamp):
         
     else:
         logger.error("connection to valkey instance failed")  
-    # job_json = json.dumps(call_job, default=str)
-    # score = int(scheduled_time.timestamp())
-    # logger.info('figured out the score')
-    # redis_client.zadd('scheduled_calls', {job_json: score})
-    # logger.info('sent it off to redis')
-    # print('Scheduled call')
-    # # call_with_script(text, phone)
-    # logger.info(scheduled_time)
-    # logger.info(f"In Scheduler:Text generated and job scheduled")
-    # audio_file = synthesize_voice(text, filename=f"{name}.mp3")
-    # logger.info(f"In Scheduler:Audio file generated")
-    # url = audio_url_func(audio_file)
-    # logger.info(f"In Scheduler:Audio file url: {url}")
-    # logger.info(f"In Scheduler:Audio file uploaded to S3")
-    # make_call(phone, url)
-    # logger.info(f"In Scheduler:Text: {text}")
-    # def job():
-    #     text = generate_message(name, tone)
-    #     audio_file = synthesize_voice(text)
-    #     url = audio_url_func(audio_file)
-    #     make_call(phone, url)
-    # logger.info(f"In Scheduler:Scheduling call for {name} at {hour}:{minute}")
-    # scheduler.add_job(job, 'cron', hour=int(hour), minute=int(minute))
-    # scheduler.start()
+
+
+def call_now(name, phone, tone):
+    text = generate_message(name, tone)
+    call_with_script(text, phone)
+
 def call_with_script(script_text, phone_number):
     session = boto3.Session(
         aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
