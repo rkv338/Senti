@@ -21,7 +21,7 @@ By combining empathy with technology, Senti helps users start their day feeling 
 ## Tech Stack
 - **Backend:** Python, FastAPI  
 - **Frontend:** React  
-- **Telephony & AI:** AWS Connect, AWS Lex, AWS Lambda  
+- **Telephony & AI:** AWS Connect, AWS Lex, AWS Lambda, OpenAI API  
 - **Data & Caching:** AWS Elasticache (Valkey)  
 - **Cloud Infrastructure:** AWS  
 
@@ -52,7 +52,9 @@ By combining empathy with technology, Senti helps users start their day feeling 
 ---
 
 ## Future Roadmap
-- Mobile app (iOS/Android)  
+- Mobile app (iOS/Android)
+- Utilizing RAG on official psychiatric help documents to craft responses
+- Making voice sound more human  
 - Enhanced personalization with mood tracking & AI adaptation   
 - Corporate wellness integrations  
 
