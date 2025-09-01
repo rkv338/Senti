@@ -1,6 +1,6 @@
 # Senti
 
-**Senti** is an AI-powered mental health wake-up platform that helps users start their day with compassion instead of a jarring alarm. Instead of ringing, Senti calls you with a supportive, empathetic AI voice designed to motivate you out of bed — especially on mornings when depression, anxiety, or burnout make it hardest to rise.  
+**Senti** is an AI-powered mental health wellness wake-up platform that helps users start their day with compassion instead of a jarring alarm. Instead of ringing, Senti calls you with a supportive, empathetic AI voice designed to motivate you out of bed, especially on mornings when depression, anxiety, or burnout make it hardest to rise.  
 
 ---
 
@@ -13,7 +13,7 @@ By combining empathy with technology, Senti helps users start their day feeling 
 ## Features
 - **AI Wake-Up Calls** – Replace alarms with personalized, empathetic conversations    
 - **Web Scheduling Interface** – Simple interface for booking wake-up calls  
-- **Low-Latency Infrastructure** – Sub-3 second response time during live calls (will be improved) 
+- **Low-Latency Infrastructure** – Sub-3 second response time during live calls **(will be improved)** 
 - **Customizable Personalities** – Choose from motivational, gentle, or spiritual  
 
 ---
