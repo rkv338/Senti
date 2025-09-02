@@ -55,6 +55,7 @@ By combining empathy with technology, Senti helps users start their day feeling 
 ---
 
 ## Future Roadmap
+- Decrease/mask 3 second response time
 - Mobile app (iOS/Android)
 - Utilizing RAG on official psychiatric help documents to craft responses
 - Making voice sound more human  
