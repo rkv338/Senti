@@ -16,7 +16,7 @@ By combining empathy with technology, Senti helps users start their day feeling 
 ## Features
 - **AI Wake-Up Calls** – Replace alarms with personalized, empathetic conversations    
 - **Web Scheduling Interface** – Simple interface for booking wake-up calls  
-- **Low-Latency Infrastructure** – Sub-3 second response time during live calls **(will be improved)** 
+- **Relatively Low-Latency Infrastructure** – Sub-3 second response time during live calls **(will be improved)** 
 - **Customizable Personalities** – Choose from motivational, gentle, or spiritual  
 
 ---
